@@ -1,0 +1,8 @@
+[submodule "tools/clang"]
+	path = tools/clang
+	url = https://gitlab.peersafe.cn/chainsql/clang.git
+	branch = develop
+[submodule "tools/lld"]
+	path = tools/lld
+	url = https://gitlab.peersafe.cn/chainsql/lld.git
+	branch = develop

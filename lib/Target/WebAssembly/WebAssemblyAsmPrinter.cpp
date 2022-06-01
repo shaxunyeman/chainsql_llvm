@@ -189,17 +189,17 @@ void WebAssemblyAsmPrinter::EmitEndOfAsmFile(Module &M) {
 
   bool has_import = false;
   bool has_abi    = false;
-  bool has_eosio_action = false;
-  bool has_eosio_notify = false;
+  bool has_chainsql_action = false;
+  bool has_chainsql_notify = false;
   for (const auto &F : M) {
-     if (F.hasFnAttribute("eosio_wasm_import"))
+     if (F.hasFnAttribute("chainsql_wasm_import"))
         has_import = true;
-     if (F.hasFnAttribute("eosio_wasm_abi"))
+     if (F.hasFnAttribute("chainsql_wasm_abi"))
         has_abi = true;
-     if (F.hasFnAttribute("eosio_wasm_action"))
-        has_eosio_action = true;
-     if (F.hasFnAttribute("eosio_wasm_notify"))
-        has_eosio_notify = true;
+     if (F.hasFnAttribute("chainsql_wasm_action"))
+        has_chainsql_action = true;
+     if (F.hasFnAttribute("chainsql_wasm_notify"))
+        has_chainsql_notify = true;
   }
 
   if (has_import) {
@@ -209,7 +209,7 @@ void WebAssemblyAsmPrinter::EmitEndOfAsmFile(Module &M) {
          OutContext.getWasmSection(SectionName, SectionKind::getMetadata());
      OutStreamer->SwitchSection(mySection);
      for (const auto &F : M) {
-        if (F.hasFnAttribute("eosio_wasm_import")) {
+        if (F.hasFnAttribute("chainsql_wasm_import")) {
            OutStreamer->EmitULEB128IntValue(F.getName().size());
            OutStreamer->EmitBytes(F.getName());
         }
@@ -218,43 +218,43 @@ void WebAssemblyAsmPrinter::EmitEndOfAsmFile(Module &M) {
   }
   if (has_abi) {
      OutStreamer->PushSection();
-     std::string SectionName = ".eosio_abi";
+     std::string SectionName = ".chainsql_abi";
      MCSectionWasm *mySection =
          OutContext.getWasmSection(SectionName, SectionKind::getMetadata());
      OutStreamer->SwitchSection(mySection);
      for (const auto &F : M) {
-        if (F.hasFnAttribute("eosio_wasm_abi")) {
-           StringRef abi = F.getFnAttribute("eosio_wasm_abi").getValueAsString();
+        if (F.hasFnAttribute("chainsql_wasm_abi")) {
+           StringRef abi = F.getFnAttribute("chainsql_wasm_abi").getValueAsString();
            OutStreamer->EmitULEB128IntValue(abi.size());
            OutStreamer->EmitBytes(abi);
         }
      }
      OutStreamer->PopSection();
   }
-  if (has_eosio_action) {
+  if (has_chainsql_action) {
      OutStreamer->PushSection();
-     std::string SectionName = ".eosio_actions";
+     std::string SectionName = ".chainsql_actions";
      MCSectionWasm *mySection =
          OutContext.getWasmSection(SectionName, SectionKind::getMetadata());
      OutStreamer->SwitchSection(mySection);
      for (const auto &F : M) {
-        if (F.hasFnAttribute("eosio_wasm_action")) {
-           StringRef action_name = F.getFnAttribute("eosio_wasm_action").getValueAsString();
+        if (F.hasFnAttribute("chainsql_wasm_action")) {
+           StringRef action_name = F.getFnAttribute("chainsql_wasm_action").getValueAsString();
            OutStreamer->EmitULEB128IntValue(action_name.size());
            OutStreamer->EmitBytes(action_name);
         }
      }
      OutStreamer->PopSection();
   }
-  if (has_eosio_notify) {
+  if (has_chainsql_notify) {
      OutStreamer->PushSection();
-     std::string SectionName = ".eosio_notify";
+     std::string SectionName = ".chainsql_notify";
      MCSectionWasm *mySection =
          OutContext.getWasmSection(SectionName, SectionKind::getMetadata());
      OutStreamer->SwitchSection(mySection);
      for (const auto &F : M) {
-        if (F.hasFnAttribute("eosio_wasm_notify")) {
-           StringRef name = F.getFnAttribute("eosio_wasm_notify").getValueAsString();
+        if (F.hasFnAttribute("chainsql_wasm_notify")) {
+           StringRef name = F.getFnAttribute("chainsql_wasm_notify").getValueAsString();
            OutStreamer->EmitULEB128IntValue(name.size());
            OutStreamer->EmitBytes(name);
         }

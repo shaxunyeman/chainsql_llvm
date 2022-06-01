@@ -261,7 +261,7 @@ def : MergeRule<"adjustCallerSSPLevel">;
 def : MergeRule<"adjustCallerStackProbes">;
 def : MergeRule<"adjustCallerStackProbeSize">;
 
-def EosioWasmEntry  : EnumAttr<"eosio_wasm_entry">;
-def EosioWasmImport : EnumAttr<"eosio_wasm_import">;
+def ChainSQLWasmEntry  : EnumAttr<"chainsql_wasm_entry">;
+def ChainSQLWasmImport : EnumAttr<"chainsql_wasm_import">;
 def : MergeRule<"adjustMinLegalVectorWidth">;
 def : MergeRule<"adjustNullPointerValidAttr">;
