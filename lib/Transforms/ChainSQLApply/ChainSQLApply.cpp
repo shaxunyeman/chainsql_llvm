@@ -47,11 +47,11 @@ namespace {
          IRBuilder<> builder(&F.getEntryBlock());
          builder.SetInsertPoint(&(F.getEntryBlock().front()));
 
-         auto set_contract = F.getParent()->getOrInsertFunction("chainsql_set_contract_name", AttributeList{}, Type::getVoidTy(F.getContext()), Type::getInt64Ty(F.getContext()));
+         //auto set_contract = F.getParent()->getOrInsertFunction("chainsql_set_contract_name", AttributeList{}, Type::getVoidTy(F.getContext()), Type::getInt64Ty(F.getContext()));
 
-         CallInst* set_contract_call = builder.CreateCall(set_contract, {F.arg_begin()}, "");
-         if (const Function* F_ = dyn_cast<const Function>(set_contract.getCallee()->stripPointerCasts()))
-            set_contract_call->setCallingConv(F_->getCallingConv());
+         //CallInst* set_contract_call = builder.CreateCall(set_contract, {F.arg_begin()}, "");
+         //if (const Function* F_ = dyn_cast<const Function>(set_contract.getCallee()->stripPointerCasts()))
+         //   set_contract_call->setCallingConv(F_->getCallingConv());
 
          CallInst* wasm_ctor_call = builder.CreateCall(wasm_ctors, {}, "");
          if (const Function* F_ = dyn_cast<const Function>(wasm_ctors.getCallee()->stripPointerCasts()))
